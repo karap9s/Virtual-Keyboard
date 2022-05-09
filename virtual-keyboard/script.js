@@ -179,9 +179,12 @@ window.addEventListener('keydown', (event) => {
     } else if (languageCount % 2 !== 0 && storage.getItem('language') === '1') {
         storage.setItem('language', '0');
     }
-
-    doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.add('active');
-    if (content === 'Alt' || content === 'Control' || content === 'CapsLock'|| content === 'Shift') {
+    for (let i = 0; i < keyArr.length; i++) {
+        if (data === keyArr[i]) {
+            doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.add('active');
+        }
+    }
+    if (content === 'Alt' || content === 'Control' || content === 'CapsLock'|| content === 'Shift' || content === 'F1' || content === 'F2' || content === 'F3' || content === 'F4' || content === 'F5' || content === 'F6' || content === 'F7' || content === 'F8' || content === 'F9' || content === 'F10' || content === 'F11' || content === 'F12' || ((content === 'o' || content === 'O' || content === 'щ' || content === 'Щ') && event.altKey)) {
         textArea.value += '';
     } else if (content === 'Tab') {
             let cursor = textArea.selectionStart;
@@ -284,7 +287,11 @@ window.addEventListener('keyup', (event) => {
             doc.querySelectorAll('.caps')[i].classList.remove('hidden');
         }
     }
-    doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.remove('active');
+    for (let i = 0; i < keyArr.length; i++) {
+        if (data === keyArr[i]) {
+            doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.remove('active');
+        }
+    }
 })
 
 keyboard.addEventListener('mousedown', (event) => {

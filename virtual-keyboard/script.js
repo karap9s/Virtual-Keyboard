@@ -8,7 +8,7 @@ let rssText = doc.createTextNode('RSS Virtual Keyboard');
 let description = doc.createElement('p');
 let descriptionText = doc.createTextNode('This keyboard was created in the Windows OS');
 let advice = doc.createElement('p');
-let adviceText = doc.createTextNode('To switch language use this combination: Left Alt + O');
+let adviceText = doc.createTextNode('To switch language use Left Alt');
 
 
 wrapper.classList.add('wrapper');
@@ -37,60 +37,60 @@ let keyArr = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8,
        16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16, 38,
         17, 18, 32, 18, 17, 37, 40, 39];
     
-let lowerEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+const lowerEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
      'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'Delete',
       'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'Enter',
        'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Shift', '↑',
         'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
     
-let upperEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
+const upperEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
     'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'Delete',
      'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '|', 'Enter',
       'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 'Shift', '↑',
        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
 
-let capsEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+const capsEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
     'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Delete',
      'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", '\\', 'Enter',
       'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', '↑',
        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
-let shiftCapsEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
+const shiftCapsEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
     'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Delete',
     'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':', '"', '|', 'Enter',
     'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', '?', 'Shift', '↑',
     'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
 
-let lowerRussianArr = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+const lowerRussianArr = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
      'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Delete',
       'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'Enter',
        'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Shift', '↑',
         'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
     
-let upperRussianArr = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
+const upperRussianArr = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
     'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Delete',
      'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '/', 'Enter',
       'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', 'Shift', '↑',
        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
 
-let capsRussianArr = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+const capsRussianArr = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
     'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Delete',
      'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '\\', 'Enter',
       'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', 'Shift', '↑',
        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
-let shiftCapsRussianArr = ['ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
+const shiftCapsRussianArr = ['ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
     'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Delete',
     'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '/', 'Enter',
     'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', 'Shift', '↑',
     'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
-let storage = window.localStorage;
+const storage = window.localStorage;
 
 function init() {
     let out = '';
@@ -160,7 +160,7 @@ window.addEventListener('keydown', (event) => {
     }
 
     for (let i = 0; i < 63; i++) {
-        if ((content === 'o' || content === 'O' || content === 'щ' || content === 'Щ') && event.altKey) {
+        if (content === 'Alt') {
             doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
             doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
             languageCount++;
@@ -190,8 +190,8 @@ window.addEventListener('keydown', (event) => {
             let cursor = textArea.selectionStart;
 
             textArea.value = textArea.value.slice(0, textArea.selectionStart) + '    ' + textArea.value.slice(textArea.selectionStart);
-            textArea.selectionStart = cursor + 1;
-            textArea.selectionEnd = cursor + 1;
+            textArea.selectionStart = cursor + 4;
+            textArea.selectionEnd = cursor + 4;
     } else if (content === 'Backspace') {
         let cursor = textArea.selectionStart;
 

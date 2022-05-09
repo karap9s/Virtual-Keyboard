@@ -159,16 +159,9 @@ window.addEventListener('keydown', (event) => {
         }
     }
 
-    for (let i = 0; i < 63; i++) {
-        if (content === 'Alt') {
-            doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
-            doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
-            languageCount++;
-        }
+    if (storage.getItem('language') === null || storage.getItem('language') === undefined) {
+        storage.setItem('language', '0')
     }
-
-    // 0 - english, 1 - russian
-    
     if (languageCount % 2 === 0 && storage.getItem('language') === '0') {
         storage.setItem('language', '0');
     } else if (languageCount % 2 === 0 && storage.getItem('language') === '1') {
@@ -179,6 +172,15 @@ window.addEventListener('keydown', (event) => {
     } else if (languageCount % 2 !== 0 && storage.getItem('language') === '1') {
         storage.setItem('language', '0');
     }
+
+    for (let i = 0; i < 63; i++) {
+        if (content === 'Alt') {
+            doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
+            doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
+            languageCount++;
+        }
+    }
+    
     for (let i = 0; i < keyArr.length; i++) {
         if (data === keyArr[i]) {
             doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.add('active');

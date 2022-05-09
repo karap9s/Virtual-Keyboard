@@ -288,7 +288,6 @@ window.addEventListener('keyup', (event) => {
 })
 
 keyboard.addEventListener('mousedown', (event) => {
-    // let data = event.target.getAttribute('data');
     let content = event.target.textContent;
     let length = 126;
     let parent = event.target.parentElement;

@@ -8,5 +8,10 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
-    }
+    },
+    "globals": {
+        "document": "readonly",
+        "window": "readonly",
+        "KeyboardEvent": "readonly"
+    },
 }

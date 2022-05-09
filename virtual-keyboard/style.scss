@@ -1,0 +1,195 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+*, *::before, *:after {
+    box-sizing: inherit;
+}
+
+@mixin flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin wideKey {
+    width: 150px;
+}
+
+@mixin font {
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+body {
+    @include flex();
+}
+
+.wrapper {
+    @include flex();
+}
+
+.keyboard {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    width: 90%;
+    height: 300px;
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    margin: 3px;
+    padding: 3px;
+    float: left;
+    background: grey;
+    color: white;
+    border-radius: 5px;
+    border-color: grey;
+    transition: .3s;
+}
+
+.key:hover {
+    background: rgba($color: #709bc4, $alpha: 1.0);
+    cursor: pointer;
+}
+
+.key:nth-child(14) {
+    @include wideKey();
+}
+
+.key:nth-child(16) {
+    @include wideKey();
+}
+
+.key:nth-child(31) {
+    @include wideKey();
+}
+
+.key:nth-child(44) {
+    @include wideKey();
+}
+
+.key:nth-child(46) {
+    @include wideKey();
+}
+
+.key:nth-child(57) {
+    @include wideKey();
+}
+
+.key:nth-child(58) {
+    margin-left: 70px;
+}
+
+.key:nth-child(62) {
+    width: 550px;
+}
+
+.key:nth-child(65) {
+    margin-left: 155px;
+}
+
+.clearfix {
+    display: block;
+    width: 100%;
+    clear: both;
+}
+
+.active {
+    background: rgba($color: #4887c2, $alpha: 1.0);
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.active:hover {
+    background: rgba($color: #4887c2, $alpha: 1.0);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+}
+
+textarea {
+    font-size: 20px;
+}
+
+.rss {
+    font-size: 50px;
+    color: blueviolet;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.description {
+    @include font();
+}
+
+.advice {
+    @include font();
+}

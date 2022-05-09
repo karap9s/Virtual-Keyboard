@@ -90,6 +90,7 @@ let shiftCapsRussianArr = ['ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', 
     'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', 'Shift', '↑',
     'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
 
+let storage = window.localStorage;
 
 function init() {
     let out = '';
@@ -103,7 +104,11 @@ function init() {
         } else if (i == 55) {
             out += '<div class="clearfix"></div>'
         }
+        if (storage.getItem('language') === '0') {
         out += '<div class="key" data="'+keyArr[i]+'"><span class="rus hidden"><span class="caseDown">'+lowerRussianArr[i]+'</span><span class="caseUp hidden">'+upperRussianArr[i]+'</span><span class="caps hidden">'+capsRussianArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsRussianArr[i]+'</span></span><span class="eng"><span class="caseDown">'+lowerEnglishArr[i]+'</span><span class="caseUp hidden">'+upperEnglishArr[i]+'</span><span class="caps hidden">'+capsEnglishArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsEnglishArr[i]+'</span></span></div>';
+        } else {
+        out += '<div class="key" data="'+keyArr[i]+'"><span class="rus"><span class="caseDown">'+lowerRussianArr[i]+'</span><span class="caseUp hidden">'+upperRussianArr[i]+'</span><span class="caps hidden">'+capsRussianArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsRussianArr[i]+'</span></span><span class="eng hidden"><span class="caseDown">'+lowerEnglishArr[i]+'</span><span class="caseUp hidden">'+upperEnglishArr[i]+'</span><span class="caps hidden">'+capsEnglishArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsEnglishArr[i]+'</span></span></div>';
+        }
     }
     doc.querySelector('.keyboard-wrapper').innerHTML = out;
 }
@@ -118,9 +123,9 @@ function defaultActions(event) {
 doc.addEventListener('keydown', defaultActions);
 
 let count = 0;
-let current = 'engCaseDown';
+let languageCount = 0;
 
-addEventListener('keydown', (event) => {
+window.addEventListener('keydown', (event) => {
     let data = event.keyCode;
     let content = event.key;
     let length = 126;
@@ -136,31 +141,43 @@ addEventListener('keydown', (event) => {
             doc.querySelectorAll('.caps')[i].classList.add('hidden');
             doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
             doc.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
-            current = 'engShiftCaps';
         } else if (count % 2 !== 0) {
             doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
             doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
             doc.querySelectorAll('.caps')[i].classList.remove('hidden');
-            current = 'engCaps';
         } else if (event.shiftKey === true) {
             doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
             doc.querySelectorAll('.caps')[i].classList.add('hidden');
             doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.remove('hidden');
-            current = 'engCaseUp';
         } else {
             doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
             doc.querySelectorAll('.caps')[i].classList.add('hidden');
             doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
-            current = 'engCaseDown';
         }
+    }
 
+    for (let i = 0; i < 63; i++) {
         if ((content === 'o' || content === 'O' || content === 'щ' || content === 'Щ') && event.altKey) {
             doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
             doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
+            languageCount++;
         }
+    }
+
+    // 0 - english, 1 - russian
+    
+    if (languageCount % 2 === 0 && storage.getItem('language') === '0') {
+        storage.setItem('language', '0');
+    } else if (languageCount % 2 === 0 && storage.getItem('language') === '1') {
+        storage.setItem('language', '1');
+    }
+    if (languageCount % 2 !== 0 && storage.getItem('language') === '0') {
+        storage.setItem('language', '1');
+    } else if (languageCount % 2 !== 0 && storage.getItem('language') === '1') {
+        storage.setItem('language', '0');
     }
 
     doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.add('active');
@@ -253,7 +270,7 @@ addEventListener('keydown', (event) => {
     }
 })
 
-addEventListener('keyup', (event) => {
+window.addEventListener('keyup', (event) => {
     let data = event.keyCode;
     let content = event.key;
     let length = 126;
@@ -262,7 +279,6 @@ addEventListener('keyup', (event) => {
         if (content === 'Shift' && count % 2 === 0) {
             doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            current = 'engCaseDown';
         } else if (content === 'Shift' && count % 2 !== 0) {
             doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
             doc.querySelectorAll('.caps')[i].classList.remove('hidden');
@@ -282,21 +298,27 @@ keyboard.addEventListener('mousedown', (event) => {
         parent.classList.add('active');
     }
     for (let i = 0; i < length; i++) {
-        if (count % 2 !== 0) {
+        if (count % 2 !== 0 && content === 'Shift') {
+            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            doc.querySelectorAll('.caps')[i].classList.add('hidden');
+            doc.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
+        } else if (count % 2 !== 0) {
+            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
             doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
             doc.querySelectorAll('.caps')[i].classList.remove('hidden');
-            current = 'engCaps';
-         } else {
-            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            current = 'engCaseDown';
-        }
-
-        if (content === 'Shift') {
+            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+         } else if (content === 'Shift') {
             parent.classList.add('active');
             doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.remove('hidden');
-            current = 'engCaseUp';
+            doc.querySelectorAll('.caps')[i].classList.add('hidden');
+            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+        } else {
+            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
+            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            doc.querySelectorAll('.caps')[i].classList.add('hidden');
+            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
         }
     }
     if (event.target.className === 'caseDown' || event.target.className === 'caseUp' || event.target.className === 'caps' || event.target.className === 'shiftCaps') {
@@ -304,7 +326,11 @@ keyboard.addEventListener('mousedown', (event) => {
         if (content === 'Alt' || content === 'Control' || content === 'CapsLock'|| content === 'Shift') {
             textArea.value += '';
         } else if (content === 'Tab') {
-            textArea.value += '    ';
+            let cursor = textArea.selectionStart;
+
+            textArea.value = textArea.value.slice(0, textArea.selectionStart) + '    ' + textArea.value.slice(textArea.selectionStart);
+            textArea.selectionStart = cursor + 1;
+            textArea.selectionEnd = cursor + 1;
         } else if (content === 'Backspace') {
             let cursor = textArea.selectionStart;
     
@@ -333,7 +359,11 @@ keyboard.addEventListener('mousedown', (event) => {
             textArea.selectionStart = textArea.value.indexOf('\n', cursor) + 1;
             textArea.selectionEnd = textArea.value.indexOf('\n', cursor) + 1;
         } else {
-            textArea.value += content;
+            let cursor = textArea.selectionStart;
+
+            textArea.value = textArea.value.slice(0, textArea.selectionStart) + content + textArea.value.slice(textArea.selectionStart);
+            textArea.selectionStart = cursor + 1;
+            textArea.selectionEnd = cursor + 1;
         }
     }
 })
@@ -344,11 +374,17 @@ keyboard.addEventListener('mouseup', (event) => {
     let parent = event.target.parentElement;
 
     for (let i = 0; i < length; i++) {
-        if (content === 'Shift') {
+        if (content === 'Shift' && count % 2 === 0) {
             parent.classList.remove('active');
             doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
             doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            current = 'engCaseDown';
+            doc.querySelectorAll('.caps')[i].classList.add('hidden');
+            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+        } else if (content === 'Shift' && count % 2 !== 0) {
+            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            doc.querySelectorAll('.caps')[i].classList.remove('hidden');
         }
     }
 

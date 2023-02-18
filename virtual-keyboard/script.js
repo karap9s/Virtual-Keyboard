@@ -1,15 +1,5 @@
-let doc = document;
-let wrapper = doc.createElement('div');
-let textArea = doc.createElement('textarea');
-let keyboard = doc.createElement('div');
-let keyboardWrapper = doc.createElement('div');
-let rss = doc.createElement('h1');
-let rssText = doc.createTextNode('RSS Virtual Keyboard');
-let description = doc.createElement('p');
-let descriptionText = doc.createTextNode('This keyboard was created in the Windows OS');
-let advice = doc.createElement('p');
-let adviceText = doc.createTextNode('To switch language use Left Alt');
-
+import { advice, adviceText, description, descriptionText, keyboard, keyboardWrapper, rss, rssText, storage, textArea, wrapper } from "./domConsts";
+import { capsEnglishArr, capsRussianArr, keyArr, lowerEnglishArr, lowerRussianArr, shiftCapsEnglishArr, shiftCapsRussianArr, upperEnglishArr, upperRussianArr } from "./keyConsts";
 
 wrapper.classList.add('wrapper');
 textArea.classList.add('text');
@@ -24,73 +14,12 @@ advice.appendChild(adviceText);
 description.appendChild(descriptionText);
 rss.appendChild(rssText);
 keyboard.appendChild(keyboardWrapper);
-doc.body.appendChild(wrapper);
+document.body.appendChild(wrapper);
 wrapper.appendChild(rss);
 wrapper.appendChild(textArea);
 wrapper.appendChild(keyboard);
 wrapper.appendChild(description);
 wrapper.appendChild(advice);
-
-let keyArr = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8,
-     9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 46,
-      20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222, 220, 13,
-       16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16, 38,
-        17, 18, 32, 18, 17, 37, 40, 39];
-    
-const lowerEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
-     'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'Delete',
-      'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'Enter',
-       'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Shift', '↑',
-        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-    
-const upperEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
-    'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'Delete',
-     'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '|', 'Enter',
-      'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 'Shift', '↑',
-       'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-
-const capsEnglishArr = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
-    'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Delete',
-     'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", '\\', 'Enter',
-      'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', '↑',
-       'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-const shiftCapsEnglishArr = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
-    'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Delete',
-    'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':', '"', '|', 'Enter',
-    'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', '?', 'Shift', '↑',
-    'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-
-const lowerRussianArr = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
-     'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Delete',
-      'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'Enter',
-       'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Shift', '↑',
-        'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-    
-const upperRussianArr = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
-    'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Delete',
-     'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '/', 'Enter',
-      'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', 'Shift', '↑',
-       'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-
-const capsRussianArr = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
-    'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Delete',
-     'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '\\', 'Enter',
-      'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', 'Shift', '↑',
-       'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-const shiftCapsRussianArr = ['ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
-    'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Delete',
-    'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '/', 'Enter',
-    'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', 'Shift', '↑',
-    'Ctrl', 'Alt', ' ', 'AltGr', 'Ctrl', '←', '↓', '→'];
-
-const storage = window.localStorage;
 
 function init() {
     let out = '';
@@ -110,7 +39,7 @@ function init() {
         out += '<div class="key" data="'+keyArr[i]+'"><span class="rus"><span class="caseDown">'+lowerRussianArr[i]+'</span><span class="caseUp hidden">'+upperRussianArr[i]+'</span><span class="caps hidden">'+capsRussianArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsRussianArr[i]+'</span></span><span class="eng hidden"><span class="caseDown">'+lowerEnglishArr[i]+'</span><span class="caseUp hidden">'+upperEnglishArr[i]+'</span><span class="caps hidden">'+capsEnglishArr[i]+'</span><span class="shiftCaps hidden">'+shiftCapsEnglishArr[i]+'</span></span></div>';
         }
     }
-    doc.querySelector('.keyboard-wrapper').innerHTML = out;
+    document.querySelector('.keyboard-wrapper').innerHTML = out;
 }
 
 init();
@@ -120,7 +49,7 @@ function defaultActions(event) {
     return false;
   }
   
-doc.addEventListener('keydown', defaultActions);
+document.addEventListener('keydown', defaultActions);
 
 let count = 0;
 let languageCount = 0;
@@ -129,7 +58,7 @@ window.addEventListener('keydown', (event) => {
     let data = event.keyCode;
     let content = event.key;
     let length = 126;
-    let keys = doc.querySelectorAll('.key');
+    let keys = document.querySelectorAll('.key');
 
 
     if (data === 20) {
@@ -137,32 +66,32 @@ window.addEventListener('keydown', (event) => {
     }
     for (let i = 0; i < length; i++) {
         if(count % 2 !== 0 && event.shiftKey === true) {
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
         } else if (count % 2 !== 0) {
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.remove('hidden');
         } else if (event.shiftKey === true) {
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.remove('hidden');
         } else {
-            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
         }
     }
 
     for (let i = 0; i < 63; i++) {
         if (content === 'Alt') {
-            doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
-            doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
+            document.querySelectorAll('.eng')[i].classList.toggle('hidden');
+            document.querySelectorAll('.rus')[i].classList.toggle('hidden');
             languageCount++;
         }
     }
@@ -178,7 +107,9 @@ window.addEventListener('keydown', (event) => {
 
     for (let i = 0; i < keyArr.length; i++) {
         if (data === keyArr[i]) {
-            doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.add('active');
+            document
+              .querySelector('.keyboard-wrapper .key[data="' + data + '"]')
+              .classList.add('active');
         }
     }
     if (content === 'Alt' || content === 'Control' || content === 'CapsLock'|| content === 'Shift' || content === 'F1' || content === 'F2' || content === 'F3' || content === 'F4' || content === 'F5' || content === 'F6' || content === 'F7' || content === 'F8' || content === 'F9' || content === 'F10' || content === 'F11' || content === 'F12' || ((content === 'o' || content === 'O' || content === 'щ' || content === 'Щ') && event.altKey)) {
@@ -277,16 +208,18 @@ window.addEventListener('keyup', (event) => {
 
     for (let i = 0; i < length; i++) {
         if (content === 'Shift' && count % 2 === 0) {
-            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
         } else if (content === 'Shift' && count % 2 !== 0) {
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.remove('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.remove('hidden');
         }
     }
     for (let i = 0; i < keyArr.length; i++) {
         if (data === keyArr[i]) {
-            doc.querySelector('.keyboard-wrapper .key[data="'+ data +'"]').classList.remove('active');
+            document
+              .querySelector('.keyboard-wrapper .key[data="' + data + '"]')
+              .classList.remove('active');
         }
     }
 })
@@ -302,32 +235,32 @@ keyboard.addEventListener('mousedown', (event) => {
     }
     for (let i = 0; i < length; i++) {
         if (count % 2 !== 0 && content === 'Shift') {
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.remove('hidden');
         } else if (count % 2 !== 0) {
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.remove('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.remove('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
          } else if (content === 'Shift') {
             parent.classList.add('active');
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.remove('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
         } else {
-            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
         }
     }
     for (let i = 0; i < 63; i++) {
         if (content === 'Alt') {
-            doc.querySelectorAll('.eng')[i].classList.toggle('hidden');
-            doc.querySelectorAll('.rus')[i].classList.toggle('hidden');
+            document.querySelectorAll('.eng')[i].classList.toggle('hidden');
+            document.querySelectorAll('.rus')[i].classList.toggle('hidden');
             languageCount++;
         }
     }
@@ -386,15 +319,15 @@ keyboard.addEventListener('mouseup', (event) => {
     for (let i = 0; i < length; i++) {
         if (content === 'Shift' && count % 2 === 0) {
             parent.classList.remove('active');
-            doc.querySelectorAll('.caseDown')[i].classList.remove('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
         } else if (content === 'Shift' && count % 2 !== 0) {
-            doc.querySelectorAll('.caseDown')[i].classList.add('hidden');
-            doc.querySelectorAll('.caseUp')[i].classList.add('hidden');
-            doc.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
-            doc.querySelectorAll('.caps')[i].classList.remove('hidden');
+            document.querySelectorAll('.caseDown')[i].classList.add('hidden');
+            document.querySelectorAll('.caseUp')[i].classList.add('hidden');
+            document.querySelectorAll('.shiftCaps')[i].classList.add('hidden');
+            document.querySelectorAll('.caps')[i].classList.remove('hidden');
         }
     }
 
